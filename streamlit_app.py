@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit_analytics as sta
 import pandas as pd
 import math
 import kaleido
@@ -41,7 +42,9 @@ col1,  col2,col3, col4 = st.columns([2,1,2,2])
 
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
+    streamlit_analytics.start_tracking()
     name2 = st.selectbox('Pokemon', df_stats['Name'])
+    streamlit_analytics.stop_tracking()
     attack2 =st.slider('Attack IV', 0, 15, 15)
     defense2 = st.slider('Defense IV', 0, 15, 15)
     hp2 = st.slider('HP IV', 0, 15, 15)
