@@ -39,12 +39,12 @@ df_stats = pd.read_csv('stats.csv',encoding='latin-1')  # CSV with name, attack,
 df_levels = pd.read_csv('cp_mod.csv',encoding='latin-1')  # CSV with level, percent
 
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
-
+streamlit_analytics.start_tracking()
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
     streamlit_analytics.start_tracking()
     name2 = st.selectbox('Pokemon', df_stats['Name'])
-    streamlit_analytics.stop_tracking()
+   
     attack2 =st.slider('Attack IV', 0, 15, 15)
     defense2 = st.slider('Defense IV', 0, 15, 15)
     hp2 = st.slider('HP IV', 0, 15, 15)
@@ -121,3 +121,4 @@ if run_calc:
         #st.write(df)
     
         # Download button
+streamlit_analytics.stop_tracking()
