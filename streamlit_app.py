@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit_analytics as sta
+import streamlit_analytics
 import pandas as pd
 import math
 import kaleido
