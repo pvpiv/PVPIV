@@ -76,7 +76,7 @@ class MyList(list):
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
 
 def poke_search():
-    if not st.session_state['last_sel']:
+    if st.session_state['last_sel'] is not None:
         st.session_state['last_sel'] = st.session_state.poke_choice
     else:
         st.session_state['last_sel'] = st.session_state.poke_choice
@@ -87,15 +87,17 @@ with col1:
     today = date.today()
     #'Select a Pokémon:',pokemon_list
     pokemon_list = MyList(df_stats['Name'].unique())
+    last = st.session_state['last_sel']
     name2 = st.selectbox('Select a Pokemon',options = pokemon_list,index = pokemon_list.last_index(),label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
-    try:    
-        load_new(streamlit_analytics.counts,st.secrets["fb_col"])
-        streamlit_analytics.start_tracking()
-        st.text_input(label = today.strftime("%m/%d/%y"),value = name2 ,disabled = True,label_visibility = 'hidden')
-        save_new(streamlit_analytics.counts,st.secrets["fb_col"])
-        streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
-    except:
-        pass
+    if pokemon_choice != "Gholdengo":
+        try:    
+            load_new(streamlit_analytics.counts,st.secrets["fb_col"])
+            streamlit_analytics.start_tracking()
+            st.text_input(label = today.strftime("%m/%d/%y"),value = name2 ,disabled = True,label_visibility = 'hidden')
+            save_new(streamlit_analytics.counts,st.secrets["fb_col"])
+            streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
+        except:
+            pass
     attack2 =st.slider('Attack IV', 0, 15, 15)
     defense2 = st.slider('Defense IV', 0, 15, 15)
     hp2 = st.slider('HP IV', 0, 15, 15)
