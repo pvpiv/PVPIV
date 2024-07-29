@@ -88,9 +88,9 @@ with col1:
     #'Select a Pokémon:',pokemon_list
     pokemon_list = MyList(df_stats['Name'].unique())
     last = st.session_state['last_sel']
-    name2 = st.selectbox('Select a Pokemon',options = pokemon_list,index = pokemon_list.last_index(),label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
+    name2 = st.selectbox('Select a Pokemon',options = pokemon_list,index = pokemon_list.last_index(),label_visibility = 'hidden',key="poke_choice")
     st.session_state['last_sel'] = name2
-    if name2 != "Gholdengo" and last != st.session_state['last_sel']:
+    if name2 != "Gholdengo" and last != name2:
         try:    
             load_new(streamlit_analytics.counts,st.secrets["fb_col"])
             streamlit_analytics.start_tracking()
