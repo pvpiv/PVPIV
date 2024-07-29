@@ -87,7 +87,7 @@ with col1:
     streamlit_analytics.start_tracking()
     today = date.today()
     #'Select a Pokémon:',pokemon_list
-    pokemon_list = df_stats['Name'].unique()
+    pokemon_list = MyList(df_stats['Name'].unique())
     name2 = st.selectbox(label = today.strftime("%m/%d/%y"),options = pokemon_list,index = pokemon_list.last_index(),label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
     try:
         save_new(streamlit_analytics.counts,st.secrets["fb_col"])
