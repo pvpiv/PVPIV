@@ -75,6 +75,7 @@ streamlit_analytics.start_tracking()
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
     streamlit_analytics.start_tracking()
+    today = date.today()
     name2 = st.selectbox(label = today.strftime("%m/%d/%y"),value = df_stats['Name'],label_visibility = 'hidden')
    
     attack2 =st.slider('Attack IV', 0, 15, 15)
