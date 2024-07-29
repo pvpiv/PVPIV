@@ -6,6 +6,8 @@ import kaleido
 from math import sqrt
 from plotly import figure_factory 
 import json
+from google.cloud import firestore
+from google.oauth2 import service_account
 st.markdown(
     """
     <style>
