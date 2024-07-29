@@ -91,7 +91,7 @@ with col1:
     try:    
         load_new(streamlit_analytics.counts,st.secrets["fb_col"])
         streamlit_analytics.start_tracking()
-        st.write(label = today.strftime("%m/%d/%y"),value = st.session_state['last_sel'],label_visibility = 'hidden')
+        st.text_input(label = today.strftime("%m/%d/%y"),value = name2 ,disabled = True,label_visibility = 'hidden')
         save_new(streamlit_analytics.counts,st.secrets["fb_col"])
         streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
     except:
