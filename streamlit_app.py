@@ -70,8 +70,7 @@ def save_new(counts, collection_name):
     doc = col.document(st.secrets["fb_col"])
     doc.set(counts)  # creates if doesn't exist
     
-load_new(streamlit_analytics.counts,st.secrets["fb_col"])
-streamlit_analytics.start_tracking()
+
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
 
 def poke_search():
@@ -82,6 +81,7 @@ def poke_search():
         
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
+    load_new(streamlit_analytics.counts,st.secrets["fb_col"])
     streamlit_analytics.start_tracking()
     today = date.today()
     name2 = st.selectbox(label = today.strftime("%m/%d/%y"),options = df_stats['Name'],label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
