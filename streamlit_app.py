@@ -69,7 +69,7 @@ def save_new(counts, collection_name):
     doc = col.document(st.secrets["fb_col"])
     doc.set(counts)  # creates if doesn't exist
     
-#load_new(streamlit_analytics.counts,"pvpiv")
+load_new(streamlit_analytics.counts,st.secrets["fb_col"])
 streamlit_analytics.start_tracking()
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
 
@@ -155,5 +155,5 @@ if run_calc:
         #st.write(df)
     
         # Download button
-save_new(streamlit_analytics.counts,"pvpiv")
+save_new(streamlit_analytics.counts,st.secrets["fb_col"])
 streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
