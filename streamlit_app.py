@@ -40,7 +40,8 @@ s2 = dict(selector='td', props=[('text-align', 'center')])
 # Load CSV data
 df_stats = pd.read_csv('stats.csv',encoding='latin-1')  # CSV with name, attack, defense, hp
 df_levels = pd.read_csv('cp_mod.csv',encoding='latin-1')  # CSV with level, percent
-
+if 'last_sel' not in st.session_state:
+    st.session_state['last_sel'] = None
 def load_new(counts, collection_name):
     """Load count data from firestore into `counts`."""
 
@@ -73,18 +74,29 @@ load_new(streamlit_analytics.counts,st.secrets["fb_col"])
 streamlit_analytics.start_tracking()
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
 
+def poke_search():
+    if not st.session_state['last_sel']:
+        st.session_state['last_sel'] = st.session_state.poke_choice
+    else
+        st.session_state['last_sel'] = st.session_state.poke_choice
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
     streamlit_analytics.start_tracking()
     today = date.today()
-    name2 = st.selectbox(label = today.strftime("%m/%d/%y"),options = df_stats['Name'],label_visibility = 'hidden')
-   
+    name2 = st.selectbox(label = today.strftime("%m/%d/%y"),options = df_stats['Name'],label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
+
+    streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
     attack2 =st.slider('Attack IV', 0, 15, 15)
     defense2 = st.slider('Defense IV', 0, 15, 15)
     hp2 = st.slider('HP IV', 0, 15, 15)
     #level2 = st.slider('Select Level', 0, 51, 25)
     if st.button('Generate CP Table'):
         run_calc = True
+        try:
+            save_new(streamlit_analytics.counts,st.secrets["fb_col"])
+            streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
+        except:
+            pass
     else:
         run_calc = False
 
@@ -155,8 +167,4 @@ if run_calc:
         #st.write(df)
     
         # Download button
-try:
-    save_new(streamlit_analytics.counts,st.secrets["fb_col"])
-except:
-    pass
-streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
+
