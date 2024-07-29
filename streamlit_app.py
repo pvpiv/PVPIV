@@ -85,8 +85,6 @@ with col1:
     streamlit_analytics.start_tracking()
     today = date.today()
     name2 = st.selectbox(label = today.strftime("%m/%d/%y"),options = df_stats['Name'],label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
-
-    streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
     attack2 =st.slider('Attack IV', 0, 15, 15)
     defense2 = st.slider('Defense IV', 0, 15, 15)
     hp2 = st.slider('HP IV', 0, 15, 15)
