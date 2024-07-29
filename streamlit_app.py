@@ -158,10 +158,6 @@ if run_calc:
            key='download-csv'
         )
     run_calc = True
-streamlit_analytics.start_tracking()
-
-streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
-
 
 
                 # Streamlit application
