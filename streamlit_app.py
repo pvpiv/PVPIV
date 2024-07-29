@@ -5,7 +5,7 @@ import math
 import kaleido
 from math import sqrt
 from plotly import figure_factory 
-
+import json
 st.markdown(
     """
     <style>
