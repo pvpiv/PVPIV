@@ -155,5 +155,8 @@ if run_calc:
         #st.write(df)
     
         # Download button
-save_new(streamlit_analytics.counts,st.secrets["fb_col"])
+try:
+    save_new(streamlit_analytics.counts,st.secrets["fb_col"])
+except:
+    pass
 streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
