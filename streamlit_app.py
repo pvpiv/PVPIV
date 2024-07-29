@@ -83,13 +83,15 @@ def poke_search():
         
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
-    load_new(streamlit_analytics.counts,st.secrets["fb_col"])
-    streamlit_analytics.start_tracking()
+
     today = date.today()
     #'Select a Pokémon:',pokemon_list
     pokemon_list = MyList(df_stats['Name'].unique())
-    name2 = st.selectbox(label = today.strftime("%m/%d/%y"),options = pokemon_list,index = pokemon_list.last_index(),label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
-    try:
+    name2 = st.selectbox('Select a Pokemon',options = pokemon_list,index = pokemon_list.last_index(),label_visibility = 'hidden',on_change = poke_search,key="poke_choice")
+    try:    
+        load_new(streamlit_analytics.counts,st.secrets["fb_col"])
+        streamlit_analytics.start_tracking()
+        st.write(label = today.strftime("%m/%d/%y"),value = st.session_state['last_sel'],label_visibility = 'hidden')
         save_new(streamlit_analytics.counts,st.secrets["fb_col"])
         streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
     except:
