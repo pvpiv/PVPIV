@@ -77,8 +77,9 @@ col1,  col2,col3, col4 = st.columns([2,1,2,2])
 def poke_search():
     if not st.session_state['last_sel']:
         st.session_state['last_sel'] = st.session_state.poke_choice
-    else
+    else:
         st.session_state['last_sel'] = st.session_state.poke_choice
+        
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
     streamlit_analytics.start_tracking()
