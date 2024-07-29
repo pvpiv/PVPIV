@@ -69,10 +69,10 @@ def save_new(counts, collection_name):
     doc = col.document(st.secrets["fb_col"])
     doc.set(counts)  # creates if doesn't exist
     
-load_new(streamlit_analytics.counts,"pvpiv")
+#load_new(streamlit_analytics.counts,"pvpiv")
 streamlit_analytics.start_tracking()
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
-streamlit_analytics.start_tracking()
+
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
     streamlit_analytics.start_tracking()
