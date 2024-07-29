@@ -38,12 +38,42 @@ s2 = dict(selector='td', props=[('text-align', 'center')])
 df_stats = pd.read_csv('stats.csv',encoding='latin-1')  # CSV with name, attack, defense, hp
 df_levels = pd.read_csv('cp_mod.csv',encoding='latin-1')  # CSV with level, percent
 
+def load_new(counts, collection_name):
+    """Load count data from firestore into `counts`."""
+
+    # Retrieve data from firestore.
+    key_dict = json.loads(st.secrets["textkey"])
+    #creds = firestore.Client.from_service_account_json(key_dict)
+    creds = service_account.Credentials.from_service_account_info(key_dict)
+    db = firestore.Client(credentials=creds, project="pvpogo")
+   
+    col = db.collection(collection_name)
+    firestore_counts = col.document(st.secrets["fb_col"]).get().to_dict()
+    # Update all fields in counts that appear in both counts and firestore_counts.
+    if firestore_counts is not None:
+        for key in firestore_counts:
+            if key in counts:
+                counts[key] = firestore_counts[key]
+
+
+def save_new(counts, collection_name):
+    """Save count data from `counts` to firestore."""
+    key_dict = json.loads(st.secrets["textkey"])
+    creds = service_account.Credentials.from_service_account_info(key_dict)
+    #creds = firestore.Client.from_service_account_json(key_dict)
+    db = firestore.Client(credentials=creds, project="pvpogo")
+    col = db.collection(collection_name)
+    doc = col.document(st.secrets["fb_col"])
+    doc.set(counts)  # creates if doesn't exist
+    
+load_new(streamlit_analytics.counts,"pvpiv")
+streamlit_analytics.start_tracking()
 col1,  col2,col3, col4 = st.columns([2,1,2,2])
 streamlit_analytics.start_tracking()
 with col1:
     # UI for selecting name, attack2, defense2, hp2, level2
     streamlit_analytics.start_tracking()
-    name2 = st.selectbox('Pokemon', df_stats['Name'])
+    name2 = st.selectbox(label = today.strftime("%m/%d/%y"),value = df_stats['Name'],label_visibility = 'hidden')
    
     attack2 =st.slider('Attack IV', 0, 15, 15)
     defense2 = st.slider('Defense IV', 0, 15, 15)
@@ -121,4 +151,5 @@ if run_calc:
         #st.write(df)
     
         # Download button
-streamlit_analytics.stop_tracking()
+save_new(streamlit_analytics.counts,"pvpiv")
+streamlit_analytics.stop_tracking(unsafe_password=st.secrets['pass'])
