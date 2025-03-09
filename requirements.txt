@@ -1,6 +1,6 @@
 altair
 pandas
 streamlit
-streamlit_analytics 
+streamlit_analytics2
 plotly
 kaleido
