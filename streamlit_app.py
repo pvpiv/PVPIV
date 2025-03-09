@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit_analytics
+import streamlit_analytics2
 import pandas as pd
 import math
 import kaleido
@@ -34,8 +34,7 @@ st.markdown(
 
 s1 = dict(selector='th', props=[('text-align', 'center')])
 s2 = dict(selector='td', props=[('text-align', 'center')])
-# you can include more styling paramteres, check the pandas docs
-
+ 
 
 # Load CSV data
 df_stats = pd.read_csv('stats.csv',encoding='latin-1')  # CSV with name, attack, defense, hp
